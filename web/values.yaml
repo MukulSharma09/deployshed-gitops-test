@@ -1,2 +1,3 @@
 # deployshed changes this line by a pull request on each deploy.
 image: traefik/whoami:v1.10.3
+url: http://136.116.166.183
