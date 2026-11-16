@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: gitops-web}
+  template:
+    metadata:
+      labels: {app: gitops-web}
+    spec:
+      # Written into this namespace by deployshed, for its copy of the image.
+      imagePullSecrets: [{name: toolshed-registry}]
+      containers:
+        - name: web
+          image: {{ .Values.image | quote }}
+          ports: [{containerPort: 80}]
+          readinessProbe:
+            httpGet: {path: /health, port: 80}
